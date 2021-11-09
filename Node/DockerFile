@@ -1,0 +1,21 @@
+# BUILD
+# docker build -t backend:0.1.0 -f DockerFile .
+# docker run -p 3800:3800 backend:0.1.0
+# docker run -p 3800:3800 -e POSTGRE_PASS=admin -e POSTGRE_HOST=192.168.1.2 -d backend:0.1.0
+FROM node:14.17.6
+
+COPY . /opt/app
+
+ENV POSTGRE_USER=postgres \
+    POSTGRE_PASS=admin \
+    POSTGRE_HOST=localhost \
+    POSTGRE_DATABASE=postgres \
+    POSTGRE_PORT=5432
+
+WORKDIR /opt/app
+
+RUN npm install
+
+EXPOSE 3800
+
+CMD ["npm","start"]
